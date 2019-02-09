@@ -1,0 +1,9 @@
+﻿<Application x:Class="Esperoque_no_te_borres.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Esperoque_no_te_borres"
+             StartupUri="Vista\Window1.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
