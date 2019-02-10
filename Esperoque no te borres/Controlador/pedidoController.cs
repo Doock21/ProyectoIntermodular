@@ -13,10 +13,10 @@ namespace Esperoque_no_te_borres.Controlador
 {
     class pedidoController
     {
-        public static void insertar(int id, string fecha, int comensales)
+        public static void insertar(int id, string fecha, int comensales, int mesa, int empleado)
         {
-            Pedido pedido = new Pedido(id, fecha, comensales);
-            var rest = new RestClient("http://localhost:3000");
+            Pedido pedido = new Pedido(id, fecha, comensales, mesa, empleado);
+            var rest = new RestClient("http://localhost:1337");
             var request = new RestRequest("/ticket", Method.POST);
             request.AddHeader("Content-Type", "application/json");
             request.AddJsonBody(pedido);
@@ -24,7 +24,7 @@ namespace Esperoque_no_te_borres.Controlador
         }
         public static List<Pedido> obtener(int id)
         {
-            var rest = new RestClient("http://localhost:3000/");
+            var rest = new RestClient("http://localhost:1337/");
             var request = new RestRequest("/ticket/{id}", Method.GET);
             request.AddUrlSegment("id", id);
             var response = rest.Execute(request);
@@ -32,15 +32,15 @@ namespace Esperoque_no_te_borres.Controlador
         }
         public static List<Pedido> obtener()
         {
-            var rest = new RestClient("http://localhost:3000/");
+            var rest = new RestClient("http://localhost:1337/");
             var request = new RestRequest("/ticket/", Method.GET);
             var response = rest.Execute(request);
             return JsonConvert.DeserializeObject<List<Pedido>>(response.Content);
         }
-        public static void actualizar(int id, string fecha, int comensales)
+        public static void actualizar(int id, string fecha, int comensales, int mesa, int empleado)
         {
-            Pedido pedido = new Pedido(id, fecha, comensales);
-            var rest = new RestClient("http://localhost:3000");
+            Pedido pedido = new Pedido(id, fecha, comensales, mesa, empleado);
+            var rest = new RestClient("http://localhost:1337");
             var request = new RestRequest("/ticket", Method.PUT);
             request.AddHeader("Content-Type", "application/json");
             request.AddJsonBody(pedido);
@@ -48,7 +48,7 @@ namespace Esperoque_no_te_borres.Controlador
         }
         public static void eliminar(int id)
         {
-            var rest = new RestClient("http://localhost:3000/");
+            var rest = new RestClient("http://localhost:1337/");
             var request = new RestRequest("/ticket/{id}", Method.DELETE);
             request.AddUrlSegment("id", id);
             rest.Execute(request);

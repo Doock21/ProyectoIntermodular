@@ -12,9 +12,9 @@ namespace Esperoque_no_te_borres.Controlador
     class empleadoController
     {
         
-        public static void insertar(int codigo, string dni, string password, string nombre, string appellido, string rango)
+        public static void insertar(int codigo, string dni, string password, string nombre, string appellido,float sueldo, string rango)
         {
-            Empleado empleado = new Empleado(codigo, dni, password, nombre, appellido, rango);
+            Empleado empleado = new Empleado(codigo, dni, password, nombre, appellido,sueldo, rango);
             var rest = new RestClient("http://localhost:1337");
             var request = new RestRequest("/empleado", Method.POST);
             request.AddHeader("Content-Type", "application/json");
@@ -36,9 +36,9 @@ namespace Esperoque_no_te_borres.Controlador
             var response = rest.Execute(request);
             return JsonConvert.DeserializeObject<List<Empleado>>(response.Content);
         }
-        public static void actualizar(int codigo, string dni, string password, string nombre, string appellido, string rango)
+        public static void actualizar(int codigo, string dni, string password, string nombre, string appellido, float sueldo, string rango)
         {
-            Empleado empleado = new Empleado(codigo, dni, password, nombre, appellido, rango);
+            Empleado empleado = new Empleado(codigo, dni, password, nombre, appellido, sueldo, rango);
             var rest = new RestClient("http://localhost:1337");
             var request = new RestRequest("/empleado", Method.PUT);
             request.AddHeader("Content-Type", "application/json");

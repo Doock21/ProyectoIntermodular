@@ -12,9 +12,9 @@ namespace Esperoque_no_te_borres.Controlador
 {
     class linpedController
     {
-        public static void insertar(int numero, int cantidad, float importre)
+        public static void insertar(int numero, int cantidad, float importre, int producto, int pedido)
         {
-            Linped linped = new Linped(numero, cantidad, importre);
+            Linped linped = new Linped(numero, cantidad, importre, producto,pedido);
             var rest = new RestClient("http://localhost:3000");
             var request = new RestRequest("/", Method.POST);
             request.AddHeader("Content-Type", "application/json");
@@ -36,9 +36,9 @@ namespace Esperoque_no_te_borres.Controlador
             var response = rest.Execute(request);
             return JsonConvert.DeserializeObject<List<Linped>>(response.Content);
         }
-        public static void actualizar(int numero, int cantidad, float importre)
+        public static void actualizar(int numero, int cantidad, float importre, int producto, int pedido)
         {
-            Linped linped = new Linped(numero, cantidad, importre);
+            Linped linped = new Linped(numero, cantidad, importre, producto, pedido);
             var rest = new RestClient("http://localhost:3000");
             var request = new RestRequest("/lineaPedido", Method.PUT);
             request.AddHeader("Content-Type", "application/json");

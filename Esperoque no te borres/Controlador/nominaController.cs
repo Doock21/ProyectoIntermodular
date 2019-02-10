@@ -12,9 +12,9 @@ namespace Esperoque_no_te_borres.Controlador
 {
     class nominaController
     {
-        public static void insertar(int numero, float horas, float euros)
+        public static void insertar(int numero, float horas, float euros, int empleado)
         {
-            Nomina nomina = new Nomina(numero, horas, euros);
+            Nomina nomina = new Nomina(numero, horas, euros, empleado);
             var rest = new RestClient("http://localhost:3000");
             var request = new RestRequest("/ticket", Method.POST);
             request.AddHeader("Content-Type", "application/json");
@@ -36,9 +36,9 @@ namespace Esperoque_no_te_borres.Controlador
             var response = rest.Execute(request);
             return JsonConvert.DeserializeObject<List<Nomina>>(response.Content);
         }
-        public static void actualizar(int numero, float horas, float euros)
+        public static void actualizar(int numero, float horas, float euros, int empleado)
         {
-            Nomina nomina = new Nomina(numero, horas, euros);
+            Nomina nomina = new Nomina(numero, horas, euros, empleado);
             var rest = new RestClient("http://localhost:3000");
             var request = new RestRequest("/ticket", Method.PUT);
             request.AddHeader("Content-Type", "application/json");

@@ -23,20 +23,38 @@ namespace Esperoque_no_te_borres.Vista
     /// </summary>
     public partial class Window1 : Window
     {
-        Button boton;      
+        Button boton;
+        List<Grupo> listagrupos = grupoController.obtener();
+        List<Empleado> listaEmpleados = empleadoController.obtener();
+        List<Mesa> listaMesas = mesaController.obtener();
+        List<Producto> listaProducto = productoController.obtener();
+        List<Linped> listaLinped = new List<Linped>();
+
+        int contador = 1;
+        public static int cantidadproductoprueba=0;
+
+        float total_a_pagar=0;
+        // esto dimacio
+           // Pedido
+        //
+      
+
+        Empleado Useractual;
+        Mesa mesaAcual;
         public Window1()
         {
-         
-            InitializeComponent();
+            InitializeComponent();                            
+            Useractual = listaEmpleados[0];           
             cargagrupos();
         }
+
+      
 
         private void cargagrupos()
         {
           
-            List<Grupo> listagrupos = grupoController.obtener();
            
-            Prueba.Text = listagrupos[0].nombre;
+           
            
             foreach (Grupo item in listagrupos)
             {
@@ -63,8 +81,7 @@ namespace Esperoque_no_te_borres.Vista
             boton = (Button)sender;
             int idgrupo =Convert.ToInt32(boton.Tag);          
        
-            List<Producto> listaProducto = productoController.obtener();
-
+            
             foreach (var Producto in listaProducto)
             {
                 boton = new Button();
@@ -76,7 +93,7 @@ namespace Esperoque_no_te_borres.Vista
                     boton.Width = 200;
                     boton.Background = Brushes.Red;
                     // boton.Margin = Noseque;
-                    //boton.Click += new RoutedEventHandler(obproductos_de_grupos);
+                    boton.Click += new RoutedEventHandler(Añadir_A_Pedido);
 
                     WrapProductos.Children.Add(boton);
 
@@ -88,5 +105,34 @@ namespace Esperoque_no_te_borres.Vista
 
         }
 
+        private void Añadir_A_Pedido(object sender, RoutedEventArgs e)
+        {
+            //pedidoController.insertar(1,"99/99/9999",3, listaMesas[0].id,listaEmpleados[0].codigo);
+           
+            boton = (Button)sender;
+            int idproducto = Convert.ToInt32(boton.Tag);
+
+            List<Producto> aux1 = productoController.obtener(idproducto);
+            CantidadProducto c = new CantidadProducto();
+
+            c.ShowDialog();
+            
+            Linped aux = new Linped(contador,cantidadproductoprueba, idproducto, 1);
+            contador++;
+
+            
+            listaLinped.Add(aux);
+            DataContext = null;
+            DataContext = listaLinped;
+            foreach (Linped item in listaLinped)
+            {
+                total_a_pagar+=item.importe;
+
+            }
+            textoTotal.Text = Convert.ToString(total_a_pagar)+" €";
+            total_a_pagar = 0;
+        }
+
+   
     }
 }
